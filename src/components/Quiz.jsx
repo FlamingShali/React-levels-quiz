@@ -1,15 +1,26 @@
-import QUESTIONS from "../questions.js";
+import { useContext, useRef, useState } from "react";
 
-console.log(QUESTIONS);
+import { QuizContext } from "../context/quizContext.jsx";
+import BasicQuiz from "./BasicQuiz.jsx";
+import StarterPage from "./StarterPage.jsx";
+
 const Quiz = () => {
-  
+  const {
+    curQuestion,
+    onClickNext,
+    quizLevel,
+    quizLevels,
+    handleQuizLevel,
+    QUESTIONS,
+  } = useContext(QuizContext);
+
   return (
-    <div>
-      
-      {QUESTIONS.map((question, index) => {
-        return <div key={index}>{question.question}</div>;
-      })}
-    </div>
+    <>
+      {quizLevel === "basic" && <BasicQuiz />}
+      {quizLevel === "intermediate" && <BasicQuiz />}
+      {quizLevel === "advanced" && <BasicQuiz />}
+      {quizLevel === "" && <StarterPage />}
+    </>
   );
 };
 
