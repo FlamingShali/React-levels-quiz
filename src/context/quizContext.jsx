@@ -1,4 +1,4 @@
-import { useState, useReducer } from "react";
+import { useState } from "react";
 import { createContext } from "react";
 import QUESTIONS from "../questions.js";
 
@@ -13,16 +13,26 @@ const initialState = {
   secondsRemaining: null,
 };
 
-function reducer(state, action) {
-  switch (action.type) {
-  }
-}
-
 export default function QuizContextProvider({ children }) {
+  const [chosenAnswer, setChosenAnswer] = useState("");
+  const [points, setPoints] = useState(0);
   const [curQuestion, setCurQuestion] = useState(0);
+  const [chosenAnswerIndex, setChosenAnswerIndex] = useState(null);
+  const [selectedAnswer, setSelectedAnswer] = useState(false);
+
+  function handleSelectAnswer(index) {
+    setChosenAnswerIndex(index); // Zapamiętaj wybraną odpowiedź
+
+    if (index === QUESTIONS[curQuestion].correctOption) {
+      setPoints((prevPoints) => prevPoints + QUESTIONS[curQuestion].points);
+    }
+    setSelectedAnswer(true);
+  }
 
   function handleNextQuestion() {
     setCurQuestion((prevQuestion) => prevQuestion + 1);
+    setSelectedAnswer(false);
+    setChosenAnswerIndex(null);
   }
 
   const [quizLevel, setQuizLevel] = useState("");
@@ -41,6 +51,11 @@ export default function QuizContextProvider({ children }) {
     onClickNext: handleNextQuestion,
     handleQuizLevel: handleQuizLevel,
     QUESTIONS: QUESTIONS,
+    points: points,
+    chosenAnswer: chosenAnswer,
+    chosenAnswerIndex: chosenAnswerIndex,
+    handleSelectAnswer: handleSelectAnswer,
+    selectedAnswer: selectedAnswer,
   };
 
   return (

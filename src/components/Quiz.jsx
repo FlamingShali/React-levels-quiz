@@ -1,18 +1,11 @@
-import { useContext, useRef, useState } from "react";
+import { useContext } from "react";
 
 import { QuizContext } from "../context/quizContext.jsx";
 import BasicQuiz from "./BasicQuiz.jsx";
 import StarterPage from "./StarterPage.jsx";
 
 const Quiz = () => {
-  const {
-    curQuestion,
-    onClickNext,
-    quizLevel,
-    quizLevels,
-    handleQuizLevel,
-    QUESTIONS,
-  } = useContext(QuizContext);
+  const { quizLevel } = useContext(QuizContext);
 
   return (
     <>

@@ -1,3 +1,6 @@
+import { useContext } from "react";
+import { QuizContext } from "../context/quizContext";
+
 const AnswerButton = ({
   option,
   index,
@@ -5,6 +8,7 @@ const AnswerButton = ({
   isCorrect,
   isSelected,
 }) => {
+  const { selectedAnswer } = useContext(QuizContext);
   const buttonClass = isSelected
     ? isCorrect
       ? "bg-green-500"
@@ -15,6 +19,7 @@ const AnswerButton = ({
     <button
       onClick={() => handleSelectAnswer(index)}
       className={`p-2 m-1 border rounded ${buttonClass}`}
+      disabled={selectedAnswer}
     >
       {option}
     </button>

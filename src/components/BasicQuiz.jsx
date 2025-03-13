@@ -1,38 +1,51 @@
-import { useContext, useRef, useState } from "react";
-import QUESTIONS from "../questions";
+import { useContext } from "react";
 import { QuizContext } from "../context/quizContext";
 import AnswerButton from "./AnswerButton";
+import Summary from "./Summary";
 
 const BasicQuiz = () => {
-  const [chosenAnswer, setChosenAnswer] = useState("");
-  const { QUESTIONS, curQuestion, onClickNext } = useContext(QuizContext);
-  const [points, setPoints] = useState(0);
-  const [chosenAnswerIndex, setChosenAnswerIndex] = useState(null);
-
-  function handleSelectAnswer(index) {
-    setChosenAnswerIndex(index); // Zapamiętaj wybraną odpowiedź
-  }
+  const {
+    QUESTIONS,
+    curQuestion,
+    onClickNext,
+    points,
+    handleSelectAnswer,
+    chosenAnswer,
+    chosenAnswerIndex,
+    selectedAnswer,
+  } = useContext(QuizContext);
 
   return (
     <div>
-      Welcome to the basic quiz!
-      <div>{QUESTIONS[curQuestion].question}</div>
-      <div>
-        {QUESTIONS[curQuestion].options.map((option, index) => (
-          <AnswerButton
-            index={index}
-            option={option}
-            key={option}
-            handleSelectAnswer={handleSelectAnswer}
-            chosenAnswer={chosenAnswer}
-            isCorrect={index === QUESTIONS[curQuestion].correctOption}
-            isSelected={index === chosenAnswerIndex} // Sprawdzenie czy to wybrana odpowiedź
-          />
-        ))}
-      </div>
-      <button onClick={onClickNext} className="border-[2px]">
-        Next Question
-      </button>
+      {curQuestion >= QUESTIONS.length ? (
+        <Summary />
+      ) : (
+        <div>
+          Welcome to the basic quiz!
+          <span>Points:{points}</span>
+          <div>{QUESTIONS[curQuestion].question}</div>
+          <div>
+            {QUESTIONS[curQuestion].options.map((option, index) => (
+              <AnswerButton
+                index={index}
+                option={option}
+                key={option}
+                handleSelectAnswer={handleSelectAnswer}
+                chosenAnswer={chosenAnswer}
+                isCorrect={index === QUESTIONS[curQuestion].correctOption}
+                isSelected={index === chosenAnswerIndex} 
+              />
+            ))}
+          </div>
+          <button
+            disabled={selectedAnswer === false}
+            onClick={onClickNext}
+            className="border-[2px]"
+          >
+            Next Question
+          </button>
+        </div>
+      )}
     </div>
   );
 };
