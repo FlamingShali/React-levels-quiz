@@ -1,18 +1,17 @@
 import { useContext, useRef, useState } from "react";
 import QUESTIONS from "../questions";
 import { QuizContext } from "../context/quizContext";
+import AnswerButton from "./AnswerButton";
 
 const BasicQuiz = () => {
-  const [chosenAnswer, setChosenAnswer] = useState();
+  const [chosenAnswer, setChosenAnswer] = useState("");
   const { QUESTIONS, curQuestion, onClickNext } = useContext(QuizContext);
   const [points, setPoints] = useState(0);
+  const [chosenAnswerIndex, setChosenAnswerIndex] = useState(null);
 
-  function handleSelectAnswer(e) {
-    if (e.target.value === QUESTIONS[curQuestion].correctOption) {
-      console.log(e.target.value);
-    }
+  function handleSelectAnswer(index) {
+    setChosenAnswerIndex(index); // Zapamiętaj wybraną odpowiedź
   }
-  console.log(QUESTIONS[curQuestion].correctOption);
 
   return (
     <div>
@@ -20,18 +19,15 @@ const BasicQuiz = () => {
       <div>{QUESTIONS[curQuestion].question}</div>
       <div>
         {QUESTIONS[curQuestion].options.map((option, index) => (
-          <button
-            value={index}
+          <AnswerButton
+            index={index}
+            option={option}
             key={option}
-            onClick={handleSelectAnswer}
-            className={`border-[1px] rounded-[20px] m-5 w-[10rem] h-[2rem] ${
-              index === QUESTIONS[curQuestion].correctOption
-                ? "bg-green-200"
-                : ""
-            }`}
-          >
-            {option}
-          </button>
+            handleSelectAnswer={handleSelectAnswer}
+            chosenAnswer={chosenAnswer}
+            isCorrect={index === QUESTIONS[curQuestion].correctOption}
+            isSelected={index === chosenAnswerIndex} // Sprawdzenie czy to wybrana odpowiedź
+          />
         ))}
       </div>
       <button onClick={onClickNext} className="border-[2px]">
