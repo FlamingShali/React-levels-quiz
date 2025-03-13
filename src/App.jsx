@@ -6,7 +6,7 @@ import { QuizContext } from "./context/quizContext";
 const App = () => {
   const { quizLevel } = useContext(QuizContext);
   return (
-    <div className="w-screen h-screen flex flex-col items-center bg-linear bg-linear-to-t from-sky-950 to-indigo-800">
+    <div className="w-screen h-screen flex flex-col items-center bg-gray-950">
       {quizLevel === "" && <Header />}
       <Quiz />
     </div>

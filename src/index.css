@@ -11,3 +11,14 @@
     }
   }
 }
+@theme {
+  --animate-appear-left: appearLeft 10s infinite linear;
+  @keyframes appearLeft {
+    0% {
+      right: "50%";
+    }
+    100% {
+      right: "0%";
+    }
+  }
+}

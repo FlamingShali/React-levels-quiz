@@ -19,10 +19,10 @@ const BasicQuiz = () => {
       {curQuestion >= QUESTIONS.length ? (
         <Summary />
       ) : (
-        <div>
-          Welcome to the basic quiz!
-          <div>{QUESTIONS[curQuestion].question}</div>
-          <div>
+        <div className="text-white text-3xl flex flex-col items-center justify-center text-center">
+          <h1 className="m-10">Welcome to the basic quiz!</h1>
+          <h1 className="m-10">{QUESTIONS[curQuestion].question}</h1>
+          <div className="m-10">
             {QUESTIONS[curQuestion].options.map((option, index) => (
               <AnswerButton
                 index={index}
@@ -38,7 +38,7 @@ const BasicQuiz = () => {
           <button
             disabled={selectedAnswer === false}
             onClick={onClickNext}
-            className="border-[2px]"
+            className="disabled:bg-gray-700 border-[2px] rounded-[20px] w-[20rem] hover:scale-105 transition-all focus:border-blue-300"
           >
             Next Question
           </button>
