@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { createContext } from "react";
-import QUESTIONS from "../questions.js";
+import QUESTIONS from "../questionsFiles/questions.js";
 
 export const QuizContext = createContext();
 
@@ -14,7 +14,6 @@ const initialState = {
 };
 
 export default function QuizContextProvider({ children }) {
-  const [chosenAnswer, setChosenAnswer] = useState("");
   const [points, setPoints] = useState(0);
   const [curQuestion, setCurQuestion] = useState(0);
   const [chosenAnswerIndex, setChosenAnswerIndex] = useState(null);
@@ -52,7 +51,6 @@ export default function QuizContextProvider({ children }) {
     handleQuizLevel: handleQuizLevel,
     QUESTIONS: QUESTIONS,
     points: points,
-    chosenAnswer: chosenAnswer,
     chosenAnswerIndex: chosenAnswerIndex,
     handleSelectAnswer: handleSelectAnswer,
     selectedAnswer: selectedAnswer,

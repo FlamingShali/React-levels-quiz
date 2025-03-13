@@ -8,7 +8,6 @@ const BasicQuiz = () => {
     QUESTIONS,
     curQuestion,
     onClickNext,
-    points,
     handleSelectAnswer,
     chosenAnswer,
     chosenAnswerIndex,
@@ -22,7 +21,6 @@ const BasicQuiz = () => {
       ) : (
         <div>
           Welcome to the basic quiz!
-          <span>Points:{points}</span>
           <div>{QUESTIONS[curQuestion].question}</div>
           <div>
             {QUESTIONS[curQuestion].options.map((option, index) => (
@@ -33,7 +31,7 @@ const BasicQuiz = () => {
                 handleSelectAnswer={handleSelectAnswer}
                 chosenAnswer={chosenAnswer}
                 isCorrect={index === QUESTIONS[curQuestion].correctOption}
-                isSelected={index === chosenAnswerIndex} 
+                isSelected={index === chosenAnswerIndex}
               />
             ))}
           </div>
