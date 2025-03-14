@@ -19,17 +19,21 @@ const initialState = {
 export default function QuizContextProvider({ children }) {
   const QUESTIONS = useRef([]);
   const [quizLevel, setQuizLevel] = useState("");
-  const quizLevels = ["Basic", "Intermediate", "Advanced"];
   const [points, setPoints] = useState(0);
   const [curQuestion, setCurQuestion] = useState(0);
   const [chosenAnswerIndex, setChosenAnswerIndex] = useState(null);
   const [selectedAnswer, setSelectedAnswer] = useState(false);
+  const [correctAnswers, setCorrectAnswers] = useState(0);
+
+  const quizLevels = ["Basic", "Intermediate", "Advanced"];
+  let questions;
 
   function handleSelectAnswer(index) {
     setChosenAnswerIndex(index);
 
-    if (index === QUESTIONS[curQuestion].correctOption) {
-      setPoints((prevPoints) => prevPoints + QUESTIONS[curQuestion].points);
+    if (index === questions[curQuestion].correctOption) {
+      setPoints((prevPoints) => prevPoints + questions[curQuestion].points);
+      setCorrectAnswers((prevCorrectAnsers) => prevCorrectAnsers + 1);
     }
     setSelectedAnswer(true);
   }
@@ -45,8 +49,6 @@ export default function QuizContextProvider({ children }) {
     console.log(e.target.value.toLowerCase());
   }
 
-  let questions;
-
   if (quizLevel === "basic") {
     questions = QUESTIONS.current.concat(basicQuiz);
   } else if (quizLevel === "advanced") {
@@ -56,7 +58,7 @@ export default function QuizContextProvider({ children }) {
   }
 
   console.log(quizLevel);
-
+  console.log(questions);
   const quizCtx = {
     initialState: initialState,
     curQuestion: curQuestion,
@@ -69,6 +71,7 @@ export default function QuizContextProvider({ children }) {
     chosenAnswerIndex: chosenAnswerIndex,
     handleSelectAnswer: handleSelectAnswer,
     selectedAnswer: selectedAnswer,
+    correctAnswers:correctAnswers
   };
 
   return (
