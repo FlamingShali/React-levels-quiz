@@ -3,7 +3,7 @@ import { QuizContext } from "../context/quizContext";
 import AnswerButton from "./AnswerButton";
 import Summary from "./Summary";
 
-const BasicQuiz = () => {
+const QuizContent = () => {
   const {
     QUESTIONS,
     curQuestion,
@@ -48,4 +48,4 @@ const BasicQuiz = () => {
   );
 };
 
-export default BasicQuiz;
+export default QuizContent;

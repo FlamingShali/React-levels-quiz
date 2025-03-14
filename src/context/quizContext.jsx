@@ -1,6 +1,9 @@
 import { useState } from "react";
 import { createContext } from "react";
-import QUESTIONS from "../questionsFiles/questions.js";
+
+import basicQuiz from "../questionsFiles/basicQuiz.js";
+import intermediateQuiz from "./../questionsFiles/intermediateQuiz.js";
+import advancedQuiz from "./../questionsFiles/advancedQuiz.js";
 
 export const QuizContext = createContext();
 
@@ -18,6 +21,7 @@ export default function QuizContextProvider({ children }) {
   const [curQuestion, setCurQuestion] = useState(0);
   const [chosenAnswerIndex, setChosenAnswerIndex] = useState(null);
   const [selectedAnswer, setSelectedAnswer] = useState(false);
+  const [QUESTIONS, setQUESTIONS] = useState([]);
 
   function handleSelectAnswer(index) {
     setChosenAnswerIndex(index); // Zapamiętaj wybraną odpowiedź
@@ -40,6 +44,7 @@ export default function QuizContextProvider({ children }) {
   function handleQuizLevel(e) {
     console.log(e.target.value.toLowerCase());
     setQuizLevel(e.target.value.toLowerCase());
+    setQUESTIONS((prevQuestions) => prevQuestions.concat(advancedQuiz));
   }
 
   const quizCtx = {
