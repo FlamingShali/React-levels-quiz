@@ -18,7 +18,7 @@ const AnswerButton = ({
   return (
     <button
       onClick={() => handleSelectAnswer(index)}
-      className={`focus:border-blue-300 hover:scale-105 cursor-pointer rounded-[20px] min-w-[15rem] max-w-[50rem] transition-all p-2 m-5 border  ${buttonClass}`}
+      className={`focus:border-blue-300 hover:scale-105 cursor-pointer rounded-[20px] min-w-[20rem] max-w-[50rem] transition-all p-2 m-5 border  ${buttonClass}`}
       disabled={selectedAnswer}
     >
       {option}
