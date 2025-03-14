@@ -9,12 +9,15 @@ const AnswerButton = ({
   isSelected,
 }) => {
   const { selectedAnswer } = useContext(QuizContext);
-  const buttonClass = isSelected
-    ? isCorrect
+  const buttonClass = selectedAnswer
+    ? isSelected
+      ? isCorrect
+        ? "bg-green-500"
+        : "bg-red-500"
+      : isCorrect
       ? "bg-green-500"
-      : "bg-red-500"
-    : "bg-transparent disabled:bg-yellow-500";
-
+      : "disabled:bg-yellow-500"
+    : "bg-transparent";
   return (
     <button
       onClick={() => handleSelectAnswer(index)}

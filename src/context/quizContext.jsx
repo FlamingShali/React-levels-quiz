@@ -46,7 +46,6 @@ export default function QuizContextProvider({ children }) {
 
   function handleQuizLevel(e) {
     setQuizLevel(e.target.value.toLowerCase());
-    console.log(e.target.value.toLowerCase());
   }
 
   if (quizLevel === "basic") {
@@ -57,8 +56,6 @@ export default function QuizContextProvider({ children }) {
     questions = QUESTIONS.current.concat(intermediateQuiz);
   }
 
-  console.log(quizLevel);
-  console.log(questions);
   const quizCtx = {
     initialState: initialState,
     curQuestion: curQuestion,
@@ -71,7 +68,7 @@ export default function QuizContextProvider({ children }) {
     chosenAnswerIndex: chosenAnswerIndex,
     handleSelectAnswer: handleSelectAnswer,
     selectedAnswer: selectedAnswer,
-    correctAnswers:correctAnswers
+    correctAnswers: correctAnswers,
   };
 
   return (
