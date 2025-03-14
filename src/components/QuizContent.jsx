@@ -20,7 +20,7 @@ const QuizContent = () => {
       {curQuestion >= QUESTIONS.length ? (
         <Summary />
       ) : (
-        <div className="text-white text-3xl flex flex-col items-center justify-center text-center">
+        <div className="text-white md:text-3xl flex flex-col items-center justify-center text-center">
           <h1 className="m-10">
             Test your knowledge about React with this {quizLevel} quiz!
           </h1>

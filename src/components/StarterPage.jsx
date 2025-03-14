@@ -7,7 +7,7 @@ const StarterPage = () => {
   return (
     <div className="flex flex-col justify-center items-center">
       <img src={reactIcon} className="w-[20rem] h-[20rem] animate-spin" />
-      <h2 className="text-3xl text-amber-200">
+      <h2 className="md:text-3xl text-amber-200">
         Chose the quiz level you want to try
       </h2>
       <span>
