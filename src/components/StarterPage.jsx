@@ -10,7 +10,7 @@ const StarterPage = () => {
       <h2 className="md:text-3xl text-amber-200">
         Chose the quiz level you want to try
       </h2>
-      <span>
+      <span className="flex flex-col md:flex-row">
         {quizLevels.map((level) => (
           <button
             className="cursor-pointer m-5 transition-all rounded-[20px] w-[10rem] h-[3rem] bg-amber-200 hover:scale-105 text-xl"
