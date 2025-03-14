@@ -24,13 +24,13 @@ const QuizContent = () => {
           <h1 className="m-10">
             Test your knowledge about React with this {quizLevel} quiz!
           </h1>
-          <h1 className="m-10">{QUESTIONS[curQuestion].question}</h1>
-          <div className="m-10">
+          <h1 className="m-10 ">{QUESTIONS[curQuestion].question}</h1>
+          <div className="flex flex-col m-10">
             {QUESTIONS[curQuestion].options.map((option, index) => (
               <AnswerButton
                 index={index}
                 option={option}
-                key={option}
+                key={index}
                 handleSelectAnswer={handleSelectAnswer}
                 chosenAnswer={chosenAnswer}
                 isCorrect={index === QUESTIONS[curQuestion].correctOption}

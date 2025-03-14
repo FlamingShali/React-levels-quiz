@@ -12,6 +12,17 @@ const QUESTIONS = [
     points: 10,
   },
   {
+    question: "What is React?",
+    options: [
+      "React is a javascript library for building user interfaces, primarily used for single-page applications. It allows developers to create large web applications that can update and render efficiently in response to data changes.",
+      "React is a javascript framework for building user interfaces, primarily used for single-page applications. It allows developers to create large web applications that can update and render efficiently in response to data changes.",
+      "React is a javascript library for building user interfaces, primarily used for single-page applications. It allows developers to create large web applications that can update and render efficiently in response to data changes.",
+      "React is a javascript library for building user interfaces, primarily used for single-page applications. It allows developers to create large web applications that can update and render efficiently in response to data changes.",
+    ],
+    correctOption: 0,
+    points: 10,
+  },
+  {
     question: "What's the fundamental building block of React apps?",
     options: ["Components", "Blocks", "Elements", "Effects"],
     correctOption: 0,
