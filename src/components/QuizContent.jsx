@@ -16,7 +16,7 @@ const QuizContent = () => {
   } = useContext(QuizContext);
 
   return (
-    <div>
+    <div className="flex flex-col justify-center items-center text-center">
       {curQuestion >= QUESTIONS.length ? (
         <Summary />
       ) : (
@@ -41,7 +41,7 @@ const QuizContent = () => {
           <button
             disabled={selectedAnswer === false}
             onClick={onClickNext}
-            className="disabled:bg-gray-700 border-[2px] rounded-[20px] w-[20rem] hover:scale-105 transition-all focus:border-blue-300"
+            className="disabled:bg-gray-700 border-[2px] rounded-[20px] w-[20rem] hover:scale-105 transition-all focus:border-blue-300 cursor-pointer"
           >
             Next Question
           </button>

@@ -12,16 +12,16 @@ const AnswerButton = ({
   const buttonClass = selectedAnswer
     ? isSelected
       ? isCorrect
-        ? "bg-green-500 shadow-2xl shadow-green-500"
-        : "bg-red-500 shadow-2xl shadow-red-500"
+        ? "bg-green-500 shadow-[0_0_15px_rgba(34,197,94,0.6)] text-black"
+        : "bg-[#D84040]  shadow-[0_0_15px_#D84040] text-black"
       : isCorrect
-      ? "bg-green-500"
-      : "disabled:bg-yellow-500"
+      ? "bg-[#5CB338] text-black"
+      : ""
     : "bg-transparent";
   return (
     <button
       onClick={() => handleSelectAnswer(index)}
-      className={`focus:border-blue-300 hover:scale-105 cursor-pointer rounded-[20px] shadow min-w-[20rem] max-w-[50rem] transition-all p-2 m-5 border ${buttonClass}`}
+      className={`focus:border-blue-300 hover:scale-105 border-white cursor-pointer rounded-[20px] shadow min-w-[20rem] max-w-[50rem] transition-all p-2 m-5 border ${buttonClass}`}
       disabled={selectedAnswer}
     >
       {option}
