@@ -40,17 +40,6 @@ const QUESTIONS = [
     points: 10,
   },
   {
-    question: "What are components in React?",
-    options: [
-      "Components are different type of variables destined to use only with React",
-      "Components are reusable arrays of functions which can be used to build react content",
-      "Components are the building blocks of a React application. They are reusable, independent pieces of code that represent parts of the user interface. Components can be either class-based or functional.",
-      "Components are equivalent of HTML tags for React",
-    ],
-    correctOption: 2,
-    points: 10,
-  },
-  {
     question: "What is JSX?",
     options: [
       "JSX allows you to manage states and gives you possibility to manipulate this state",
@@ -59,6 +48,16 @@ const QUESTIONS = [
       "Components are equivalent of HTML tags for React",
     ],
     correctOption: 2,
+    points: 10,
+  },
+  {
+    question: "What is a Virtual DOM?",
+    options: [
+      "JSX allows you to manage states and gives you possibility to manipulate this state",
+      "JSX is type of data in Typescript that says function does not return anything",
+      "The Virtual DOM is an in-memory representation of the real DOM. React uses it to efficiently update the DOM by comparing the virtual DOM with the previous version and only applying the necessary changes to the real DOM",
+    ],
+    correctOption: 3,
     points: 10,
   },
 ];

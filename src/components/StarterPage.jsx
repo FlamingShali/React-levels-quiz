@@ -13,7 +13,7 @@ const StarterPage = () => {
       <span>
         {quizLevels.map((level) => (
           <button
-            className=" m-5 transition-all rounded-[20px] w-[10rem] h-[3rem] bg-amber-200 hover:scale-105 text-xl"
+            className="cursor-pointer m-5 transition-all rounded-[20px] w-[10rem] h-[3rem] bg-amber-200 hover:scale-105 text-xl"
             value={level}
             onClick={handleQuizLevel}
             key={level}
