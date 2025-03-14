@@ -20,12 +20,12 @@ const QuizContent = () => {
       {curQuestion >= QUESTIONS.length ? (
         <Summary />
       ) : (
-        <div className="text-white md:text-3xl flex flex-col items-center justify-center text-center">
-          <h1 className="m-10">
+        <div className="text-white lg:text-xl flex flex-col items-center justify-center text-center">
+          <h1 className="m-10 md:text-2xl font-bold">
             Test your knowledge about React with this {quizLevel} quiz!
           </h1>
           <h1 className="md:m-10 ">{QUESTIONS[curQuestion].question}</h1>
-          <div className="flex flex-col m-10">
+          <div className="flex flex-col mb-5">
             {QUESTIONS[curQuestion].options.map((option, index) => (
               <AnswerButton
                 index={index}
