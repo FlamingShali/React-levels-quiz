@@ -1,5 +1,9 @@
 @import "tailwindcss";
 
+body {
+  background-color: #030712;
+}
+
 @theme {
   --animate-spin: spin 10s infinite linear;
   @keyframes spin {
