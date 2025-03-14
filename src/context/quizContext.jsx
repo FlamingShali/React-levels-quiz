@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { createContext } from "react";
 
 import basicQuiz from "../questionsFiles/basicQuiz.js";
@@ -17,14 +17,16 @@ const initialState = {
 };
 
 export default function QuizContextProvider({ children }) {
+  const QUESTIONS = useRef([]);
+  const [quizLevel, setQuizLevel] = useState("");
+  const quizLevels = ["Basic", "Intermediate", "Advanced"];
   const [points, setPoints] = useState(0);
   const [curQuestion, setCurQuestion] = useState(0);
   const [chosenAnswerIndex, setChosenAnswerIndex] = useState(null);
   const [selectedAnswer, setSelectedAnswer] = useState(false);
-  const [QUESTIONS, setQUESTIONS] = useState([]);
 
   function handleSelectAnswer(index) {
-    setChosenAnswerIndex(index); // Zapamiętaj wybraną odpowiedź
+    setChosenAnswerIndex(index); 
 
     if (index === QUESTIONS[curQuestion].correctOption) {
       setPoints((prevPoints) => prevPoints + QUESTIONS[curQuestion].points);
@@ -38,14 +40,22 @@ export default function QuizContextProvider({ children }) {
     setChosenAnswerIndex(null);
   }
 
-  const [quizLevel, setQuizLevel] = useState("");
-  const quizLevels = ["Basic", "Intermediate", "Advanced"];
-
   function handleQuizLevel(e) {
-    console.log(e.target.value.toLowerCase());
     setQuizLevel(e.target.value.toLowerCase());
-    setQUESTIONS((prevQuestions) => prevQuestions.concat(advancedQuiz));
+    console.log(e.target.value.toLowerCase());
   }
+
+  let questions;
+
+  if (quizLevel === "basic") {
+    questions = QUESTIONS.current.concat(basicQuiz);
+  } else if (quizLevel === "advanced") {
+    questions = QUESTIONS.current.concat(advancedQuiz);
+  } else if (quizLevel === "intermediate") {
+    questions = QUESTIONS.current.concat(intermediateQuiz);
+  }
+
+  console.log(quizLevel);
 
   const quizCtx = {
     initialState: initialState,
@@ -54,7 +64,7 @@ export default function QuizContextProvider({ children }) {
     quizLevels: quizLevels,
     onClickNext: handleNextQuestion,
     handleQuizLevel: handleQuizLevel,
-    QUESTIONS: QUESTIONS,
+    QUESTIONS: questions,
     points: points,
     chosenAnswerIndex: chosenAnswerIndex,
     handleSelectAnswer: handleSelectAnswer,
