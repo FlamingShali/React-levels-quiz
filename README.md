@@ -19,6 +19,7 @@ This is a quiz about React library. I want to cover this quiz with most of the i
 ## React hooks
 
 - useState
+- useRef
 - useEffect
 - useContext,CreateContext
 
@@ -30,7 +31,7 @@ This is a quiz about React library. I want to cover this quiz with most of the i
    ```
 2. Navigate to the project directory:
    ```sh
-   cd currency-converter
+   cd React-levels-quiz-Main
    ```
 3. Install dependencies:
    ```sh
@@ -43,11 +44,11 @@ This is a quiz about React library. I want to cover this quiz with most of the i
 
 ## Usage
 
-1. Select a difficulty level 
+1. Select a difficulty level
 2. Read questions in the Quiz and select an answer
 3. Check your score in summary
 4. Have fun!
 
 ## Notes
 
-- After checking an answer, you will be not able to change it again, no timer for now 
+- After checking an answer, you will be not able to change it again, no timer for now

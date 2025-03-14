@@ -26,7 +26,7 @@ export default function QuizContextProvider({ children }) {
   const [selectedAnswer, setSelectedAnswer] = useState(false);
 
   function handleSelectAnswer(index) {
-    setChosenAnswerIndex(index); 
+    setChosenAnswerIndex(index);
 
     if (index === QUESTIONS[curQuestion].correctOption) {
       setPoints((prevPoints) => prevPoints + QUESTIONS[curQuestion].points);

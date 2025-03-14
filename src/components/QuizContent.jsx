@@ -12,6 +12,7 @@ const QuizContent = () => {
     chosenAnswer,
     chosenAnswerIndex,
     selectedAnswer,
+    quizLevel,
   } = useContext(QuizContext);
 
   return (
@@ -20,7 +21,9 @@ const QuizContent = () => {
         <Summary />
       ) : (
         <div className="text-white text-3xl flex flex-col items-center justify-center text-center">
-          <h1 className="m-10">Welcome to the basic quiz!</h1>
+          <h1 className="m-10">
+            Test your knowledge about React with this {quizLevel} quiz!
+          </h1>
           <h1 className="m-10">{QUESTIONS[curQuestion].question}</h1>
           <div className="m-10">
             {QUESTIONS[curQuestion].options.map((option, index) => (
