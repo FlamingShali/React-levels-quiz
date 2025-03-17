@@ -21,7 +21,7 @@ const AnswerButton = ({
   return (
     <button
       onClick={() => handleSelectAnswer(index)}
-      className={`focus:border-blue-300 hover:scale-105 border-white cursor-pointer rounded-[20px] shadow min-w-[20rem] max-w-[50rem] transition-all p-2 m-5 border ${buttonClass}`}
+      className={`focus:border-blue-300 hover:scale-105 border-white cursor-pointer rounded-[20px] shadow min-w-[20rem] max-w-[50rem] transition-all p-2 m-5 border ${buttonClass} animate-fade-down`}
       disabled={selectedAnswer}
     >
       {option}

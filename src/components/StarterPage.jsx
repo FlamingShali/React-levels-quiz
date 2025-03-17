@@ -5,7 +5,7 @@ import reactIcon from "./../img/icons8-react.svg";
 const StarterPage = () => {
   const { quizLevels, handleQuizLevel } = useContext(QuizContext);
   return (
-    <div className="flex flex-col justify-center items-center">
+    <div className="flex flex-col justify-center items-center animate-fade-up">
       <img src={reactIcon} className="w-[20rem] h-[20rem] animate-spin" />
       <h2 className="md:text-3xl text-amber-200">
         Chose the quiz level you want to try
