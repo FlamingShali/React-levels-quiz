@@ -1,6 +1,5 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { createContext } from "react";
-
 import basicQuiz from "../questionsFiles/basicQuiz.js";
 import intermediateQuiz from "./../questionsFiles/intermediateQuiz.js";
 import advancedQuiz from "./../questionsFiles/advancedQuiz.js";
@@ -16,6 +15,12 @@ const initialState = {
   secondsRemaining: null,
 };
 
+const quizMapping = {
+  basic: basicQuiz,
+  intermediate: intermediateQuiz,
+  advanced: advancedQuiz,
+};
+
 export default function QuizContextProvider({ children }) {
   const QUESTIONS = useRef([]);
   const timerRef = useRef(null);
@@ -28,21 +33,19 @@ export default function QuizContextProvider({ children }) {
   const [secondsRemaining, setSecondsRemaining] = useState(null);
 
   const quizLevels = ["Basic", "Intermediate", "Advanced"];
-  let questions;
 
   const handleNextQuestion = useCallback(() => {
     setCurQuestion((prevQuestion) => prevQuestion + 1);
     setSelectedAnswer(false);
     setChosenAnswerIndex(null);
-    setSecondsRemaining(30);
+    setSecondsRemaining(30); // Reset timer for the next question
   }, []);
 
-  function stopTimer() {
-    setCurQuestion((prevQuestion) => prevQuestion + 1);
-    setSelectedAnswer(false);
-    setChosenAnswerIndex(null);
+  const stopTimer = () => {
+    clearInterval(timerRef.current); // Clear timer on quiz end
     setSecondsRemaining(null);
-  }
+    setCurQuestion((prevQuestion) => prevQuestion + 1);
+  };
 
   useEffect(() => {
     if (secondsRemaining === 0) {
@@ -55,26 +58,29 @@ export default function QuizContextProvider({ children }) {
       }
     }, 1000);
 
-    return () => clearInterval(timerRef.current);
-  }, [secondsRemaining, curQuestion, handleNextQuestion]);
+    return () => clearInterval(timerRef.current); // Cleanup the timer on unmount
+  }, [secondsRemaining, handleNextQuestion]);
 
-  function handleSelectAnswer(index) {
+  const handleSelectAnswer = (index) => {
     setChosenAnswerIndex(index);
-    clearInterval(timerRef.current);
+    clearInterval(timerRef.current); // Stop timer when the answer is selected
 
-    if (index === questions[curQuestion].correctOption) {
-      setPoints((prevPoints) => prevPoints + questions[curQuestion].points);
+    const question = QUESTIONS.current[curQuestion];
+    if (index === question.correctOption) {
+      setPoints((prevPoints) => prevPoints + question.points);
       setCorrectAnswers((prevCorrectAnsers) => prevCorrectAnsers + 1);
     }
     setSelectedAnswer(true);
-  }
+  };
 
-  function handleQuizLevel(e) {
-    setQuizLevel(e.target.value.toLowerCase());
-    setSecondsRemaining(30);
-  }
+  const handleQuizLevel = (e) => {
+    const selectedLevel = e.target.value.toLowerCase();
+    setQuizLevel(selectedLevel);
+    QUESTIONS.current = [...quizMapping[selectedLevel]]; // Load questions based on selected level
+    setSecondsRemaining(30); // Reset the timer when level is selected
+  };
 
-  function resetQuiz() {
+  const resetQuiz = () => {
     setQuizLevel("");
     setPoints(0);
     setCurQuestion(0);
@@ -82,32 +88,25 @@ export default function QuizContextProvider({ children }) {
     setSelectedAnswer(false);
     setCorrectAnswers(0);
     setSecondsRemaining(null);
-  }
-
-  if (quizLevel === "basic") {
-    questions = QUESTIONS.current.concat(basicQuiz);
-  } else if (quizLevel === "advanced") {
-    questions = QUESTIONS.current.concat(advancedQuiz);
-  } else if (quizLevel === "intermediate") {
-    questions = QUESTIONS.current.concat(intermediateQuiz);
-  }
+    clearInterval(timerRef.current); // Ensure timer is cleared
+  };
 
   const quizCtx = {
-    initialState: initialState,
-    curQuestion: curQuestion,
-    quizLevel: quizLevel,
-    quizLevels: quizLevels,
+    initialState,
+    curQuestion,
+    quizLevel,
+    quizLevels,
     onClickNext: handleNextQuestion,
-    handleQuizLevel: handleQuizLevel,
-    QUESTIONS: questions,
-    points: points,
-    chosenAnswerIndex: chosenAnswerIndex,
-    handleSelectAnswer: handleSelectAnswer,
-    selectedAnswer: selectedAnswer,
-    correctAnswers: correctAnswers,
-    secondsRemaining: secondsRemaining,
-    resetQuiz: resetQuiz,
-    stopTimer: stopTimer,
+    handleQuizLevel,
+    QUESTIONS: QUESTIONS.current,
+    points,
+    chosenAnswerIndex,
+    handleSelectAnswer,
+    selectedAnswer,
+    correctAnswers,
+    secondsRemaining,
+    resetQuiz,
+    stopTimer,
   };
 
   return (
