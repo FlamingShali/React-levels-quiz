@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { createContext } from "react";
 
 import basicQuiz from "../questionsFiles/basicQuiz.js";
@@ -18,18 +18,35 @@ const initialState = {
 
 export default function QuizContextProvider({ children }) {
   const QUESTIONS = useRef([]);
+  const timerRef = useRef(null);
   const [quizLevel, setQuizLevel] = useState("");
   const [points, setPoints] = useState(0);
   const [curQuestion, setCurQuestion] = useState(0);
   const [chosenAnswerIndex, setChosenAnswerIndex] = useState(null);
   const [selectedAnswer, setSelectedAnswer] = useState(false);
   const [correctAnswers, setCorrectAnswers] = useState(0);
+  const [secondsRemaining, setSecondsRemaining] = useState(30);
 
   const quizLevels = ["Basic", "Intermediate", "Advanced"];
   let questions;
 
+  useEffect(() => {
+    if (secondsRemaining === 0) {
+      handleNextQuestion();
+    }
+
+    timerRef.current = setInterval(() => {
+      if (secondsRemaining > 0) {
+        setSecondsRemaining((prevSeconds) => prevSeconds - 1);
+      }
+    }, 1000);
+
+    return () => clearInterval(timerRef.current);
+  }, [secondsRemaining, curQuestion]);
+
   function handleSelectAnswer(index) {
     setChosenAnswerIndex(index);
+    clearInterval(timerRef.current);
 
     if (index === questions[curQuestion].correctOption) {
       setPoints((prevPoints) => prevPoints + questions[curQuestion].points);
@@ -41,6 +58,7 @@ export default function QuizContextProvider({ children }) {
   function handleNextQuestion() {
     setCurQuestion((prevQuestion) => prevQuestion + 1);
     setSelectedAnswer(false);
+    setSecondsRemaining(30);
     setChosenAnswerIndex(null);
   }
 
@@ -69,6 +87,7 @@ export default function QuizContextProvider({ children }) {
     handleSelectAnswer: handleSelectAnswer,
     selectedAnswer: selectedAnswer,
     correctAnswers: correctAnswers,
+    secondsRemaining: secondsRemaining,
   };
 
   return (

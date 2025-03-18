@@ -13,8 +13,13 @@ const QuizContent = () => {
     chosenAnswerIndex,
     selectedAnswer,
     quizLevel,
+    secondsRemaining,
   } = useContext(QuizContext);
   console.log(curQuestion);
+
+  const progressClass =
+    secondsRemaining <= 15 ? "bg-yellow-500 text-yellow-500" : "bg-blue-800";
+  const timerClass = secondsRemaining <= 15 ? "text-yellow-500" : "";
 
   return (
     <div className="flex flex-col justify-center items-center text-center">
@@ -28,6 +33,17 @@ const QuizContent = () => {
           <h1>
             Question {curQuestion + 1} out of {QUESTIONS.length}
           </h1>
+          <div className="text-[2rem] font-bold">
+            <p className={`${timerClass}`}>Time remained: {secondsRemaining}</p>
+            <div className="w-full mt-4 mb-6">
+              <progress
+                value={secondsRemaining}
+                max={30}
+                className="progress-bar h-4 rounded-xl bg-gray-200 w-[20rem] transition-all "
+              />
+            </div>
+          </div>
+          <div className="timer"></div>
           <h1 className="md:m-10 ">{QUESTIONS[curQuestion].question}</h1>
           <div className="flex flex-col mb-5 animate-fade-up">
             {QUESTIONS[curQuestion].options.map((option, index) => (
@@ -47,7 +63,7 @@ const QuizContent = () => {
             onClick={onClickNext}
             className="disabled:bg-gray-700 border-[2px] rounded-[20px] w-[20rem] hover:scale-105 transition-all focus:border-blue-300 cursor-pointer"
           >
-            {curQuestion +1 !== QUESTIONS.length && "Next Question"}
+            {curQuestion + 1 !== QUESTIONS.length && "Next Question"}
             {curQuestion + 1 === QUESTIONS.length && "Finish Quiz"}
           </button>
         </div>
