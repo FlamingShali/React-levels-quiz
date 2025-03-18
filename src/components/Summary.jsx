@@ -2,7 +2,7 @@ import { useContext } from "react";
 import { QuizContext } from "../context/quizContext";
 
 const Summary = () => {
-  const { points, QUESTIONS, correctAnswers, quizLevel } =
+  const { points, QUESTIONS, correctAnswers, quizLevel, resetQuiz } =
     useContext(QuizContext);
 
   const maxPoints = QUESTIONS.reduce(
@@ -29,6 +29,12 @@ const Summary = () => {
         You answered correctly on <strong>{correctAnswers}</strong> out of{" "}
         <strong>{QUESTIONS.length}</strong>
       </p>
+      <button
+        className="cursor-pointer m-5 transition-all rounded-[20px] w-[10rem] h-[3rem] bg-[#F4d58D] hover:scale-105 text-xl"
+        onClick={resetQuiz}
+      >
+        Reset Quiz
+      </button>
     </div>
   );
 };

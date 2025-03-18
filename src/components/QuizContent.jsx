@@ -14,6 +14,7 @@ const QuizContent = () => {
     selectedAnswer,
     quizLevel,
     secondsRemaining,
+    stopTimer,
   } = useContext(QuizContext);
   console.log(curQuestion);
 
@@ -35,13 +36,12 @@ const QuizContent = () => {
           </h1>
           <div className="text-[2rem] font-bold">
             <p className={`${timerClass}`}>Time remained: {secondsRemaining}</p>
-            <div className="w-full mt-4 mb-6">
-              <progress
-                value={secondsRemaining}
-                max={30}
-                className="progress-bar h-4 rounded-xl bg-gray-200 w-[20rem] transition-all "
-              />
-            </div>
+
+            <progress
+              value={secondsRemaining}
+              max={30}
+              className="progress-bar h-4 rounded-xl bg-gray-200 w-[20rem] transition-all "
+            />
           </div>
           <div className="timer"></div>
           <h1 className="md:m-10 ">{QUESTIONS[curQuestion].question}</h1>
@@ -60,7 +60,9 @@ const QuizContent = () => {
           </div>
           <button
             disabled={selectedAnswer === false}
-            onClick={onClickNext}
+            onClick={
+              curQuestion + 1 === QUESTIONS.length ? stopTimer : onClickNext
+            }
             className="disabled:bg-gray-700 border-[2px] rounded-[20px] w-[20rem] hover:scale-105 transition-all focus:border-blue-300 cursor-pointer"
           >
             {curQuestion + 1 !== QUESTIONS.length && "Next Question"}

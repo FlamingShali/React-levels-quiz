@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { createContext } from "react";
 
 import basicQuiz from "../questionsFiles/basicQuiz.js";
@@ -25,10 +25,24 @@ export default function QuizContextProvider({ children }) {
   const [chosenAnswerIndex, setChosenAnswerIndex] = useState(null);
   const [selectedAnswer, setSelectedAnswer] = useState(false);
   const [correctAnswers, setCorrectAnswers] = useState(0);
-  const [secondsRemaining, setSecondsRemaining] = useState(30);
+  const [secondsRemaining, setSecondsRemaining] = useState(null);
 
   const quizLevels = ["Basic", "Intermediate", "Advanced"];
   let questions;
+
+  const handleNextQuestion = useCallback(() => {
+    setCurQuestion((prevQuestion) => prevQuestion + 1);
+    setSelectedAnswer(false);
+    setChosenAnswerIndex(null);
+    setSecondsRemaining(30);
+  }, []);
+
+  function stopTimer() {
+    setCurQuestion((prevQuestion) => prevQuestion + 1);
+    setSelectedAnswer(false);
+    setChosenAnswerIndex(null);
+    setSecondsRemaining(null);
+  }
 
   useEffect(() => {
     if (secondsRemaining === 0) {
@@ -42,7 +56,7 @@ export default function QuizContextProvider({ children }) {
     }, 1000);
 
     return () => clearInterval(timerRef.current);
-  }, [secondsRemaining, curQuestion]);
+  }, [secondsRemaining, curQuestion, handleNextQuestion]);
 
   function handleSelectAnswer(index) {
     setChosenAnswerIndex(index);
@@ -55,15 +69,19 @@ export default function QuizContextProvider({ children }) {
     setSelectedAnswer(true);
   }
 
-  function handleNextQuestion() {
-    setCurQuestion((prevQuestion) => prevQuestion + 1);
-    setSelectedAnswer(false);
-    setSecondsRemaining(30);
-    setChosenAnswerIndex(null);
-  }
-
   function handleQuizLevel(e) {
     setQuizLevel(e.target.value.toLowerCase());
+    setSecondsRemaining(30);
+  }
+
+  function resetQuiz() {
+    setQuizLevel("");
+    setPoints(0);
+    setCurQuestion(0);
+    setChosenAnswerIndex(null);
+    setSelectedAnswer(false);
+    setCorrectAnswers(0);
+    setSecondsRemaining(null);
   }
 
   if (quizLevel === "basic") {
@@ -88,6 +106,8 @@ export default function QuizContextProvider({ children }) {
     selectedAnswer: selectedAnswer,
     correctAnswers: correctAnswers,
     secondsRemaining: secondsRemaining,
+    resetQuiz: resetQuiz,
+    stopTimer: stopTimer,
   };
 
   return (
