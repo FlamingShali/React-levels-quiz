@@ -1,4 +1,4 @@
-const QUESTIONS = [
+const intermediateQuiz = [
   {
     question: "What is the useEffect hook?",
     options: [
@@ -177,4 +177,4 @@ const QUESTIONS = [
   },
 ];
 
-export default QUESTIONS;
+export default intermediateQuiz;

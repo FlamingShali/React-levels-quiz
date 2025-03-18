@@ -1,4 +1,4 @@
-const QUESTIONS = [
+const basicQuiz = [
   {
     question: "Which is the most popular JavaScript framework?",
     options: ["Angular", "React", "Svelte", "Vue"],
@@ -174,4 +174,4 @@ const QUESTIONS = [
   },
 ];
 
-export default QUESTIONS;
+export default basicQuiz;
